@@ -1,0 +1,76 @@
+.btn{
+    &:link,
+    &:visited{
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem;
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all .2s; /* all the properties are considered here (stated and otherwise)*/
+        position: relative;/*because of the :after element*/
+        font-size: $default-font-size;
+    }
+
+    &:hover{
+        transform: translateY(-3px);
+        box-shadow: 0 1rem 2rem rgba($color-black, 0.2); /*making real feeling of pulling the button up by adding shadow */
+        &:after{
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0; /*this is the trick for fading smt out*/
+        }
+    }
+    &:active{
+        transform: translateY(-1px);/*this is in respect of inital position, NOT a hovered one */
+        box-shadow: 0 .5rem 1rem rgba($color-black, 0.2); /*making real sense of pressing the button by reducing shadow that was present when hovered*/
+    }
+
+    &--white{
+        background-color: $color-white;
+        color: $color-grey-dark;
+        &:after{
+            background-color: $color-white;
+        }
+    }
+
+    &:after{
+        content: "";
+        display: inline-block;
+        width: 100%; /*after is the child element, and this 100% value signifies that it has exact same width as the btn*/
+        height: 100%;
+        border-radius: 10rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .4s;
+    }
+    &--animated{
+        animation: moveInBottom .5s ease-out .75s;/*this button is supposed to come from bottom with a little bit of delay*/
+        animation-fill-mode: backwards; /*this will automatically apply the styles of the zero percent before the animation starts*/
+    }
+
+}
+
+.btn-text{
+   &:link,
+   &:visited{ color: $color-primary;
+    font-size: $default-font-size;
+    display: inline-block;
+    text-decoration: none;
+    padding: 3px ; /*small sizes can stay in px*/
+    border-bottom: 1px solid $color-primary;
+    transition: all .2s;
+   }
+
+   &:hover{
+    color: $color-white;
+    background-color: $color-primary;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+    transform: translateY(-3px);
+   }
+
+   &:active{
+    box-shadow: 0 .5rem 1rem rgba($color-black, 0.15);
+    transform: translateY(0);
+   }
+}

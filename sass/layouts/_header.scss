@@ -1,0 +1,31 @@
+.header{
+    height: 95vh;/*95 percent of the viewport height*/
+    background-image: linear-gradient(to right bottom,rgba($color-primary-light,0.8),rgba($color-primary-dark,0.8)), url(../img/hero.jpg);
+    /*changing of the hex format into rgba is rather easy, click on the top bar in the color picker*/
+    background-size: cover; /*cover up container fully always*/
+    background-position: top;/*top of the image will always be visible the same as on the original img at the top despite minimizing or maximizing, 
+                                rest of the img will be cropped*/
+    position: relative;
+
+   -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+           clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);/*top left corner is the reference point for making the other vertices */
+
+    &__logo-box{
+            position: absolute;
+            top: 4rem;
+            left: 4rem;
+    }
+    &__logo{
+            height: 3.5rem;
+    }
+        
+    &__text-box{
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            -webkit-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+            text-align: center;
+    }
+}

@@ -1,0 +1,12 @@
+*,
+*::after,
+*::before{ /*this will apply to every after and before element as well, which wasn't the case earlier*/
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; /*this is moved to body, and this implies that each element will inherit box-sizing property value */
+} /*with this universal selector I apply all these features to every single element on the page*/
+html{
+    font-size: 62.5%; /*this is standard when defining font-size for later usage of rem units , percentages are mandatory here*/
+}
+
+body{box-sizing: border-box;} /*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */

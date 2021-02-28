@@ -1,0 +1,194 @@
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-10rem);
+    transform: translateX(-10rem);
+    /*start from 100px left in comparison to original position*/ }
+  80% {
+    -webkit-transform: translateX(1rem);
+    transform: translateX(1rem);
+    /*at 80% of the animation move it 10px right of the original position */ }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    /*at the and let it be where it is*/ } }
+
+/*it's the most convenient to use only opacity and transform properties in animations*/
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(10rem);
+    transform: translateX(10rem); }
+  80% {
+    -webkit-transform: translateX(-1rem);
+    transform: translateX(-1rem); }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0); } }
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(3rem);
+    transform: translateY(3rem); }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0); } }
+
+*,
+*::after,
+*::before {
+  /*this will apply to every after and before element as well, which wasn't the case earlier*/
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  /*this is moved to body, and this implies that each element will inherit box-sizing property value */ }
+
+/*with this universal selector I apply all these features to every single element on the page*/
+html {
+  font-size: 62.5%;
+  /*this is standard when defining font-size for later usage of rem units , percentages are mandatory here*/ }
+
+body {
+  box-sizing: border-box; }
+
+/*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */
+body {
+  font-family: "Lato", sans-serif;
+  /*font-size: 16px;*/
+  font-weight: 400;
+  line-height: 1.7;
+  /*this means 1.7 bigger than the predefined line-height*/
+  color: #777;
+  padding: 3rem;
+  /*this adds 30px of whitespace around entire page, which gives a cool modern look*/ }
+
+/*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /*to stop shaking after animation is done (albeit i do not see the shaking happened)*/
+  margin-bottom: 6rem; }
+  .heading-primary--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    -webkit-animation-name: moveInLeft;
+    animation-name: moveInLeft;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    /*
+                animation-delay: 2s;
+                animation-iteration-count: 2;
+                */
+    /*additional functions that are not needed now*/ }
+  .heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.75rem;
+    -webkit-animation: moveInRight 1s ease-out;
+    animation: moveInRight 1s ease-out; }
+
+.btn:link, .btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  border-radius: 10rem;
+  transition: all .2s;
+  /* all the properties are considered here (stated and otherwise)*/
+  position: relative;
+  /*because of the :after element*/
+  font-size: 1.6rem; }
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  /*making real feeling of pulling the button up by adding shadow */ }
+  .btn:hover:after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+    /*this is the trick for fading smt out*/ }
+
+.btn:active {
+  transform: translateY(-1px);
+  /*this is in respect of inital position, NOT a hovered one */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  /*making real sense of pressing the button by reducing shadow that was present when hovered*/ }
+
+.btn--white {
+  background-color: #fff;
+  color: #777; }
+  .btn--white:after {
+    background-color: #fff; }
+
+.btn:after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  /*after is the child element, and this 100% value signifies that it has exact same width as the btn*/
+  height: 100%;
+  border-radius: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s; }
+
+.btn--animated {
+  animation: moveInBottom .5s ease-out .75s;
+  /*this button is supposed to come from bottom with a little bit of delay*/
+  animation-fill-mode: backwards;
+  /*this will automatically apply the styles of the zero percent before the animation starts*/ }
+
+.header {
+  height: 95vh;
+  /*95 percent of the viewport height*/
+  background-image: linear-gradient(to right bottom, #7ed56f, #28b485), url(../img/hero.jpg);
+  /*changing of the hex format into rgba is rather easy, click on the top bar in the color picker*/
+  background-size: cover;
+  /*cover up container fully always*/
+  background-position: top;
+  /*top of the image will always be visible the same as on the original img at the top despite minimizing or maximizing, 
+                                rest of the img will be cropped*/
+  position: relative;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  /*top left corner is the reference point for making the other vertices */ }
+  .header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
+  .header__logo {
+    height: 3.5rem; }
+  .header__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center; }
+
+.row {
+  max-width: 114rem;
+  margin: 0 auto;
+  background-color: #eee; }
+  .row:not(:last-child) {
+    /*every element inside the row will have defined margin-bottom except the last child element*/
+    margin-bottom: 8rem; }
+  .row .col-1-of-2 {
+    width: calc((100%-6rem) / 2);
+    float: left;
+    background-color: red; }
+    .row .col-1-of-2:not(:last-child) {
+      margin-right: 6rem; }

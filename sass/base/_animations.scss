@@ -1,0 +1,50 @@
+@keyframes moveInLeft{
+    0%{
+        opacity: 0;
+        -webkit-transform: translateX(-10rem);
+                transform: translateX(-10rem); /*start from 100px left in comparison to original position*/
+    }
+
+    80%{
+        -webkit-transform: translateX(1rem);
+                transform: translateX(1rem); /*at 80% of the animation move it 10px right of the original position */
+    }
+
+    100%{
+        opacity: 1;
+        -webkit-transform: translateX(0);
+                transform: translateX(0);/*at the and let it be where it is*/
+    }
+} /*it's the most convenient to use only opacity and transform properties in animations*/
+
+@keyframes moveInRight{
+    0%{
+        opacity: 0;
+        -webkit-transform: translateX(10rem);
+                transform: translateX(10rem); 
+    }
+
+    80%{
+        -webkit-transform: translateX(-1rem);
+                transform: translateX(-1rem); 
+    }
+
+    100%{
+        opacity: 1;
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+    }
+} 
+@keyframes moveInBottom{
+    0%{
+        opacity: 0;
+        -webkit-transform: translateY(3rem);
+                transform: translateY(3rem); 
+    }
+
+    100%{
+        opacity: 1;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
+} 
