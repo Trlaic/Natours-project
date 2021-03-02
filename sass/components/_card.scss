@@ -1,0 +1,162 @@
+.card{
+    // FUNCTIONALITY
+
+    perspective: 150rem; /*gives 3d effect when rotating card (here concretely, it has wider range of usage)*/
+    position: relative;
+    height: 52rem; /*this has to be defined, because this container loses height due to absolute position of all it's children (they are 
+                    out of normal flow); situation is similar to float, but there is no clearfix or alike thing to repair it*/
+    &__side{
+        height: 52rem;
+        width: 100%;
+        transition: all .8s ease;
+        position: absolute;/*setting two sides in one place, not separated one after another*/
+        top: 0;
+        left:0;
+        backface-visibility: hidden; //only front side will bi visible when this is arranged, whichever side is front at the moment
+        border-radius: 3px;
+        overflow: hidden; /*images that are put overflow this, and corners are losing border-radius*/
+        /*because clip path is used below, even this won't work, so the radius have to be written manually*/
+        box-shadow: 0 1.5rem 4rem rgba($color-black,.15); /*this could be written in a variable too, it's repeating a lot*/
+        
+        &--front{
+            background-color: $color-white;
+        }
+        
+        &--back{
+            transform: rotateY(180deg);
+            
+            &-1{
+                background-image: linear-gradient(to right bottom,$color-secondary-light,$color-secondary-dark);
+            }
+
+            &-2{
+                background-image: linear-gradient(to right bottom,$color-primary-light,$color-primary-dark);
+            }
+
+            &-3{
+                background-image: linear-gradient(to right bottom,$color-tertiary-light,$color-tertiary-dark);
+            }
+        }
+    }
+    &:hover &__side--front{
+        transform: rotateY(-180deg);
+    }
+    &:hover &__side--back{
+        transform: rotateY(0);
+    }
+
+
+    //FRONT SIDE STYLING
+
+    &__picture{
+        background-size: cover;
+        height: 23rem;/*through experimentation*/
+        background-blend-mode: screen;
+        clip-path: polygon(0 0,100% 0, 100% 85%, 0 100%);
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px; /*this is done again this way because clip-path removes overflow:hidden effect*/
+        &--1{
+            background-image:linear-gradient(to right bottom,
+            $color-secondary-light,
+            $color-secondary-dark),
+            url(../img/nat-5.jpg); /*only one level up beacuse i know this will compile into main.css which is one level above
+                                                        current file*/
+        }
+        
+        &--2{
+            background-image:linear-gradient(to right bottom,
+            $color-primary-light,
+            $color-primary-dark),
+            url(../img/nat-6.jpg);
+        }
+        
+        &--3{
+            background-image:linear-gradient(to right bottom,
+            $color-tertiary-light,
+            $color-tertiary-dark),
+            url(../img/nat-7.jpg); 
+        }
+    }
+
+    &__heading{
+        font-size: 2.8rem;
+        font-weight: 300;
+        color: $color-white;
+        text-transform: uppercase;
+        text-align: right;
+        position: absolute;
+        top: 12rem;
+        right: 2rem;
+        width: 75%;
+    }
+
+    &__heading-span{
+        box-decoration-break: clone;
+        padding: 1rem 1.5rem; /*this way one-line text will be pushed to two lines*/
+        
+        &--1{
+            background-image: linear-gradient(to right bottom,
+            rgba($color-secondary-light,.85),
+            rgba($color-secondary-dark,.85));
+        }
+
+        &--2{
+            background-image: linear-gradient(to right bottom,
+            rgba($color-primary-light,.85),
+            rgba($color-primary-dark,.85));
+        }
+
+        &--3{
+            background-image: linear-gradient(to right bottom,
+            rgba($color-tertiary-light,.85),
+            rgba($color-tertiary-dark,.85));
+        }
+    }
+
+    &__details{
+        padding: 3rem;
+        ul{
+            list-style: none;
+            margin: 0 auto;
+            width: 80%;
+            
+            li{
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+                &:not(:last-child){
+                    border-bottom: 1px solid $color-grey-light-2;
+                }
+            }
+
+        }
+
+    }
+
+    //BACK SIDE STYLING
+
+    &__cta{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 90%;
+        text-align: center;
+    }
+
+    &__price-box{
+        text-align: center;
+        color: $color-white;
+        margin-bottom: 8rem;
+    }
+
+    &__price-only{
+        font-size: 1.4rem;
+        text-transform: uppercase;
+    }
+    &__price-value{
+        font-size: 6rem;
+        font-weight: 100;
+    }
+
+}
