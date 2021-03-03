@@ -1,0 +1,67 @@
+.story{
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white,.6);
+    border-radius: 3px;
+    padding: 6rem;
+    padding-left: 9rem;
+    font-size: $default-font-size;
+    transform: skewX(-12deg);
+
+    &:not(:last-child){
+        margin-bottom: $gutter-vertical; /*this is not in the course, I added it to solve the problem, perhaps i omitted something while watching*/
+    }
+
+    &__shape{
+        width: 15rem;
+        height: 15rem;
+        overflow: hidden;/*this solves weird line beside image in circle*/
+        float: left;
+        shape-outside: circle(50% at 50% 50%); /*this value represents radius of 50% (7.5rem) and center of the circle (first value X axis,
+                                                second value Y axis - like the translate (50%,50%) when centered inside container) 
+                                                for this property, element must have defined float and width and height as well*/
+        clip-path: circle(50% at 50% 50%); 
+        transform: skewX(12deg) translateX(-3rem); /*it's better not to mess with margin when floated element is the main actor, but to translate it
+                                 with this transform property, element pops out of 6rem padding, so it has to be increased for 3rem on the left side*/
+        position: relative;
+    
+    }
+
+    &__img{
+       height: 100%; 
+       //width:100% won't work out, because image has bigger width than height, so it won't be able to fill up entire container
+       transform: translateX(-4rem) scale(1.4); /**/
+       transition: all .5s;
+       backface-visibility: hidden;/*it fixes some unexpected sensations during an animation*/
+    }
+
+    &__text{
+        transform: skewX(12deg);
+    }
+
+    &__caption{
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,20%);/*20% because it should be below center so that animation can be performed*/
+        color: $color-white;
+        font-size: 1.7rem;
+        text-transform: uppercase;
+        opacity: 0;
+        transition: all .5s;
+        backface-visibility: hidden; /*to stop the bloody shaking*/
+    }
+
+    &:hover &__caption{
+        transform: translate(-50%,-50%);
+        opacity: 1;
+    }
+    &:hover &__img{
+        transform: translateX(-4rem) scale(1);
+        filter: blur(3px) brightness(80%);/*for brightness - values under 100% darken the image, and values above 100% lighten the image*/
+    }
+    
+
+}
