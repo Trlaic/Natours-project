@@ -1,0 +1,92 @@
+.form{
+
+    &__group:not(:last-child){
+        margin-bottom: 2rem;
+    }
+
+    &__input{
+        font-family: inherit; /*browser puts it's own font-family when input elements are considered, so it has to be daone manually again*/
+        color: inherit;/*same as font-family*/
+        font-size: 1.5rem;
+        padding: 1.5rem 2rem;
+        background-color: rgba($color-white,.5);
+        width: 90%;
+        display: block;
+        border-radius: 2px;
+        border: none;
+        border-bottom: 3px solid transparent; /*if this is specified i have no troubles with moving down of smt for 3px when input is focused*/
+        transition: .3s all;
+        &:focus{
+            outline: none; /*when this is done, you should define something that will make focused element visible and recognizable*/
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+        }
+        &:focus:invalid{ /*this is only for form elements and has to be paired with some limitations (like required max/min legth ...)*/
+            border-bottom: 3px solid $color-secondary-dark;
+        }
+        
+        &::placeholder{ /*or -webkit-input-placeholder*/
+            color:$color-grey-dark-2;
+        }
+
+    }
+    
+
+    &__label{
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-top: .7rem;
+        margin-left: 2rem;
+        display: block;
+        transition: all .3s;
+    }
+
+    &__input:placeholder-shown + &__label{
+        opacity: 0;
+        //visibility: hidden; in the course this is written, I don't see the difference
+        transform: translateY(-4rem);
+    }
+
+    &__radio-group{
+        width: 49%; /*they should be in one line, this can be used instead of floats*/
+        display: inline-block;
+    }
+    &__radio-input{
+        display: none;
+    }
+    &__radio-label{
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;/*parent element of button downward*/
+        padding-left:4.5rem ;/*for the sake of button*/
+    }
+
+    &__radio-button{
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;/*those attributes will work only if this is defined as inline-block or block*/
+        position: absolute;
+        top: -.42rem;
+        left: 0;
+        &::after{ /*making of inner green circle (when selected)*/
+            content: "";
+            height: 1.3rem;
+            width: 1.3rem;
+            display: block;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+    }
+    &__radio-input:checked ~ &__radio-label &__radio-button::after{ /*here i could have used + instead of ~ beacuse they are adjacent siblings*/
+        opacity: 1;
+    }
+
+}
