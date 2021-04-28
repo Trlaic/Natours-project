@@ -7,6 +7,33 @@
 } /*with this universal selector I apply all these features to every single element on the page*/
 html{
     font-size: 62.5%; /*this is standard when defining font-size for later usage of rem units , percentages are mandatory here*/
+    /*1rem=10px | 10/16=62.5%*/
+    /*order of these includes is important, when looking at max-width, firstly will come higher values*/    
+
+    @include respond(tab-land){
+        font-size: 56.25%;     /* 1rem = 9px | 9/16=0.5625*/
+    }
+
+    @include respond(tab-port){
+        font-size: 50%;     /* 1rem= 8px | 8/16=0.5*/
+    }
+    
+    /*@include respond(phone){
+        font-size: 50%;
+    }*/ /* this is unnecessary here because its inluded in tab-port here*/
+
+
+    @include respond(big-desktop){
+        font-size: 75%;        /* 1rem = 12px | 12/16=0.75*/
+    }
 }
 
-body{box-sizing: border-box;} /*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */
+body{
+    padding: 3rem; /*this adds 30px of whitespace around entire page, which gives a cool modern look*/
+    box-sizing: border-box;
+    @include respond(tab-port){
+        padding: 0;   
+    }
+    
+
+} /*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */

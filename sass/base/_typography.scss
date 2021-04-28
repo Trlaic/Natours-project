@@ -4,7 +4,7 @@ body{
     font-weight: 400;
     line-height: 1.7; /*this means 1.7 bigger than the predefined line-height*/
     color: $color-grey-dark;
-    padding: 3rem; /*this adds 30px of whitespace around entire page, which gives a cool modern look*/
+    
 } /*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */
 
 .heading-primary{
@@ -28,6 +28,10 @@ body{
                 animation-delay: 2s;
                 animation-iteration-count: 2;
                 */ /*additional functions that are not needed now*/
+                @include respond(phone){
+                        font-size: 5rem;
+                        letter-spacing: 1rem;
+                }
     }
     &--sub{
                 display: block;
@@ -36,6 +40,9 @@ body{
                 letter-spacing: 1.75rem;
                 -webkit-animation: moveInRight 1s ease-out;
                         animation: moveInRight 1s ease-out;
+                @include respond(phone){
+                        letter-spacing: .5rem;
+                }  
     }
 }
 .heading-secondary{
@@ -49,6 +56,15 @@ body{
         color: transparent; /*in order to background color get to view this is necessity*/
         letter-spacing: .2rem;
         transition: all .2s;
+
+        @include respond(tab-port){
+                font-size: 2.5rem;
+        }  
+        
+        @include respond(phone){
+                font-size: 2rem;
+        }  
+
         &:hover{
                 transform: skewY(2deg) skewX(15deg) scaleX(1.1);
                 text-shadow: .5rem 1rem 2rem rgba($color-black,.2);

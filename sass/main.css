@@ -1,3 +1,21 @@
+/*
+0-600px     Phones
+600-900px   Tablet portrait
+900-1200px  Tablet landscape
+[1200-1800] is where normal styles apply
+1800+px     Big desktop
+
+breakpoint argument names
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+ORDER: base + typography > general layout + grid > page layout > components
+
+
+1em=16px
+*/
 @-webkit-keyframes moveInLeft {
   0% {
     opacity: 0;
@@ -17,7 +35,6 @@
     /*at the and let it be where it is*/
   }
 }
-
 @keyframes moveInLeft {
   0% {
     opacity: 0;
@@ -113,11 +130,46 @@
 html {
   font-size: 62.5%;
   /*this is standard when defining font-size for later usage of rem units , percentages are mandatory here*/
+  /*1rem=10px | 10/16=62.5%*/
+  /*order of these includes is important, when looking at max-width, firstly will come higher values*/
+  /*@include respond(phone){
+        font-size: 50%;
+    }*/
+  /* this is unnecessary here because its inluded in tab-port here*/
+}
+
+@media (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+    /* 1rem = 9px | 9/16=0.5625*/
+  }
+}
+
+@media (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+    /* 1rem= 8px | 8/16=0.5*/
+  }
+}
+
+@media (min-width: 112.5em) {
+  html {
+    font-size: 75%;
+    /* 1rem = 12px | 12/16=0.75*/
+  }
 }
 
 body {
+  padding: 3rem;
+  /*this adds 30px of whitespace around entire page, which gives a cool modern look*/
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+@media (max-width: 56.25em) {
+  body {
+    padding: 0;
+  }
 }
 
 /*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */
@@ -128,8 +180,6 @@ body {
   line-height: 1.7;
   /*this means 1.7 bigger than the predefined line-height*/
   color: #777;
-  padding: 3rem;
-  /*this adds 30px of whitespace around entire page, which gives a cool modern look*/
 }
 
 /*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */
@@ -160,6 +210,13 @@ body {
   /*additional functions that are not needed now*/
 }
 
+@media (max-width: 37.5em) {
+  .heading-primary--main {
+    font-size: 5rem;
+    letter-spacing: 1rem;
+  }
+}
+
 .heading-primary--sub {
   display: block;
   font-size: 2rem;
@@ -167,6 +224,12 @@ body {
   letter-spacing: 1.75rem;
   -webkit-animation: moveInRight 1s ease-out;
   animation: moveInRight 1s ease-out;
+}
+
+@media (max-width: 37.5em) {
+  .heading-primary--sub {
+    letter-spacing: .5rem;
+  }
 }
 
 .heading-secondary {
@@ -186,6 +249,18 @@ body {
   letter-spacing: .2rem;
   -webkit-transition: all .2s;
   transition: all .2s;
+}
+
+@media (max-width: 56.25em) {
+  .heading-secondary {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 37.5em) {
+  .heading-secondary {
+    font-size: 2rem;
+  }
 }
 
 .heading-secondary:hover {
@@ -221,8 +296,20 @@ body {
   margin-bottom: 4rem !important;
 }
 
+@media (max-width: 56.25em) {
+  .u-margin-bottom-medium {
+    margin-bottom: 3rem !important;
+  }
+}
+
 .u-margin-bottom-big {
   margin-bottom: 8rem !important;
+}
+
+@media (max-width: 56.25em) {
+  .u-margin-bottom-big {
+    margin-bottom: 5rem !important;
+  }
 }
 
 .u-margin-top-big {
@@ -534,6 +621,50 @@ body {
   font-weight: 100;
 }
 
+@media (max-width: 56.25em) {
+  .card {
+    height: auto;
+    border-radius: 3px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  }
+  .card__side {
+    height: auto;
+    position: relative;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .card__side--back {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+    -webkit-clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+  }
+  .card:hover .card__side--front {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  .card__details {
+    padding: 1rem 3rem;
+  }
+  .card__cta {
+    position: relative;
+    top: 0%;
+    left: 0;
+    -webkit-transform: translate(0);
+            transform: translate(0);
+    width: 100%;
+    padding: 7rem 4rem 4rem 4rem;
+  }
+  .card__price-box {
+    margin-bottom: 3rem;
+  }
+  .card__price-value {
+    font-size: 4rem;
+  }
+}
+
 .composition {
   position: relative;
 }
@@ -551,19 +682,55 @@ body {
   outline-offset: 2rem;
 }
 
+@media (max-width: 56.25em) {
+  .composition__photo {
+    float: left;
+    position: relative;
+    width: 33.333%;
+    -webkit-box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2);
+  }
+}
+
 .composition__photo--p1 {
   left: 0;
   top: -2rem;
 }
 
+@media (max-width: 56.25em) {
+  .composition__photo--p1 {
+    top: 0;
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+
 .composition__photo--p2 {
   right: 0;
   top: 2rem;
+  z-index: 11;
+}
+
+@media (max-width: 56.25em) {
+  .composition__photo--p2 {
+    top: -1rem;
+    -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+  }
 }
 
 .composition__photo--p3 {
   left: 20%;
   top: 10rem;
+}
+
+@media (max-width: 56.25em) {
+  .composition__photo--p3 {
+    top: 1rem;
+    left: 0;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
 }
 
 .composition__photo:hover {
@@ -595,6 +762,12 @@ body {
   transition: transform .3s, -webkit-transform .3s;
 }
 
+@media (max-width: 56.25em) {
+  .feature-box {
+    padding: 2rem;
+  }
+}
+
 .feature-box:hover {
   -webkit-transform: translateY(-1.5rem) scale(1.03);
           transform: translateY(-1.5rem) scale(1.03);
@@ -608,6 +781,12 @@ body {
   display: inline-block;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+@media (max-width: 56.25em) {
+  .feature-box__icon {
+    margin-bottom: 0;
+  }
 }
 
 .form__group:not(:last-child) {
@@ -685,6 +864,13 @@ body {
   width: 49%;
   /*they should be in one line, this can be used instead of floats*/
   display: inline-block;
+}
+
+@media (max-width: 56.25em) {
+  .form__radio-group {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
 }
 
 .form__radio-input {
@@ -767,9 +953,33 @@ body {
   transition: all .5s .2s;
 }
 
+@media (max-width: 75em) {
+  .popup__content {
+    width: 90%;
+  }
+}
+
+@media (max-width: 56.25em) {
+  .popup__content {
+    width: 75%;
+  }
+}
+
+@media (max-width: 37.5em) {
+  .popup__content {
+    width: 95%;
+  }
+}
+
 .popup__left {
   width: 33.333%;
   display: table-cell;
+}
+
+@media (max-width: 56.25em) {
+  .popup__left {
+    display: none;
+  }
 }
 
 .popup__right {
@@ -777,6 +987,12 @@ body {
   display: table-cell;
   vertical-align: middle;
   padding: 3rem 5rem;
+}
+
+@media (max-width: 56.25em) {
+  .popup__right {
+    vertical-align: auto;
+  }
 }
 
 .popup__img {
@@ -796,6 +1012,17 @@ body {
   -webkit-hyphens: auto;
       -ms-hyphens: auto;
           hyphens: auto;
+}
+
+@media (max-width: 37.5em) {
+  .popup__text {
+    -webkit-column-count: 1;
+            column-count: 1;
+    -webkit-column-gap: 0;
+            column-gap: 0;
+    -webkit-column-rule: 0;
+            column-rule: 0;
+  }
 }
 
 .popup:target {
@@ -849,6 +1076,21 @@ body {
           transform: skewX(-12deg);
 }
 
+@media (max-width: 56.25em) {
+  .story {
+    width: 100%;
+    padding: 4rem;
+    padding-left: 7rem;
+  }
+}
+
+@media (max-width: 37.5em) {
+  .story {
+    -webkit-transform: skewX(0);
+            transform: skewX(0);
+  }
+}
+
 .story:not(:last-child) {
   margin-bottom: 8rem;
   /*this is not in the course, I added it to solve the problem, perhaps i omitted something while watching*/
@@ -873,6 +1115,13 @@ body {
   position: relative;
 }
 
+@media (max-width: 37.5em) {
+  .story__shape {
+    -webkit-transform: translateX(-3rem) skewX(0);
+            transform: translateX(-3rem) skewX(0);
+  }
+}
+
 .story__img {
   height: 100%;
   -webkit-transform: translateX(-4rem) scale(1.4);
@@ -888,6 +1137,13 @@ body {
 .story__text {
   -webkit-transform: skewX(12deg);
           transform: skewX(12deg);
+}
+
+@media (max-width: 37.5em) {
+  .story__text {
+    -webkit-transform: skewX(0);
+            transform: skewX(0);
+  }
 }
 
 .story__caption {
@@ -930,9 +1186,21 @@ body {
   color: #f7f7f7;
 }
 
+@media (max-width: 56.25em) {
+  .footer {
+    padding: 8rem 0;
+  }
+}
+
 .footer__logo-box {
   text-align: center;
   margin-bottom: 8rem;
+}
+
+@media (max-width: 56.25em) {
+  .footer__logo-box {
+    margin-bottom: 6rem;
+  }
 }
 
 .footer__logo {
@@ -945,6 +1213,13 @@ body {
   padding-top: 2rem;
   display: inline-block;
   /*does'nt have to occupy the whole container*/
+}
+
+@media (max-width: 56.25em) {
+  .footer__navigation {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .footer__list {
@@ -985,6 +1260,14 @@ body {
   float: right;
 }
 
+@media (max-width: 56.25em) {
+  .footer__copyright {
+    width: 100%;
+    text-align: center;
+    float: none;
+  }
+}
+
 .header {
   height: 95vh;
   /*95 percent of the viewport height*/
@@ -1000,6 +1283,13 @@ body {
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   /*top left corner is the reference point for making the other vertices */
+}
+
+@media (max-width: 56.25em) {
+  .header {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  }
 }
 
 .header__logo-box {
@@ -1031,19 +1321,23 @@ body {
   margin-bottom: 8rem;
 }
 
+@media (max-width: 56.25em) {
+  .row:not(:last-child) {
+    margin-bottom: 8rem;
+  }
+}
+
+@media (max-width: 56.25em) {
+  .row {
+    max-width: 50rem;
+    padding: 0 3rem;
+  }
+}
+
 .row::after {
   content: "";
   display: table;
   clear: both;
-}
-
-.row [class^="col-"] {
-  /*select every class that begins with col-*/
-  float: left;
-}
-
-.row [class^="col-"]:not(:last-child) {
-  margin-right: 6rem;
 }
 
 .row .col-1-of-2 {
@@ -1071,6 +1365,28 @@ body {
   width: calc(3 * ((100% - 3 * 6rem) / 4) + 2 * 6rem);
 }
 
+.row [class^="col-"] {
+  /*select every class that begins with col-*/
+  float: left;
+}
+
+.row [class^="col-"]:not(:last-child) {
+  margin-right: 6rem;
+}
+
+@media (max-width: 56.25em) {
+  .row [class^="col-"]:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 8rem;
+  }
+}
+
+@media (max-width: 56.25em) {
+  .row [class^="col-"] {
+    width: 100%;
+  }
+}
+
 .navigation__checkbox {
   display: none;
 }
@@ -1088,6 +1404,20 @@ body {
   cursor: pointer;
 }
 
+@media (max-width: 56.25em) {
+  .navigation__button {
+    top: 4rem;
+    right: 4rem;
+  }
+}
+
+@media (max-width: 37.5em) {
+  .navigation__button {
+    top: 3rem;
+    right: 3rem;
+  }
+}
+
 .navigation__background {
   height: 6rem;
   width: 6rem;
@@ -1099,6 +1429,20 @@ body {
   z-index: 1000;
   -webkit-transition: all .8s;
   transition: all .8s;
+}
+
+@media (max-width: 56.25em) {
+  .navigation__background {
+    top: 4.5rem;
+    right: 4.5rem;
+  }
+}
+
+@media (max-width: 37.5em) {
+  .navigation__background {
+    top: 3.5rem;
+    right: 3.5rem;
+  }
 }
 
 .navigation__nav {
@@ -1224,6 +1568,12 @@ body {
                         in header height partition)*/
 }
 
+@media (max-width: 56.25em) {
+  .section-about {
+    padding: 20rem 0;
+  }
+}
+
 .section-features {
   padding: 20rem 0;
   /*little bit of space to get modern and fresh look*/
@@ -1241,10 +1591,22 @@ body {
           transform: skewY(7deg);
 }
 
+@media (max-width: 56.25em) {
+  .section-features {
+    padding: 10rem 0;
+  }
+}
+
 .section-tours {
   background-color: #f7f7f7;
   padding: 25rem 0 15rem 0;
   margin-top: -9rem;
+}
+
+@media (max-width: 56.25em) {
+  .section-tours {
+    padding: 20rem 0 10rem 0;
+  }
 }
 
 .section-stories {
@@ -1253,25 +1615,62 @@ body {
   padding: 15rem 0;
 }
 
+@media (max-width: 56.25em) {
+  .section-stories {
+    padding: 10rem 0;
+  }
+}
+
 .section-book {
   padding: 15rem 0;
   background-image: -webkit-gradient(linear, left top, right bottom, from(#7ed56f), to(#28b485));
   background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
 }
 
+@media (max-width: 56.25em) {
+  .section-book {
+    padding: 10rem 0;
+  }
+}
+
 .book {
   /*this is partly in the home partial beacuse it has some very specific properties*/
   background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url(../img/nat-10.jpg);
   background-size: 100%;
-  /*100% is the same es cover*/
+  /*100% fills up the x axis*/
   border-radius: 3px;
   -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
           box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
-  height: 50rem;
+}
+
+@media (max-width: 75em) {
+  .book {
+    background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 65%, transparent 65%), url(../img/nat-10.jpg);
+    background-size: cover;
+  }
+}
+
+@media (max-width: 56.25em) {
+  .book {
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0.9)), to(rgba(255, 255, 255, 0.9))), url(../img/nat-10.jpg);
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url(../img/nat-10.jpg);
+  }
 }
 
 .book__form {
   width: 50%;
   padding: 6rem;
+}
+
+@media (max-width: 75em) {
+  .book__form {
+    width: 65%;
+  }
+}
+
+@media (max-width: 56.25em) {
+  .book__form {
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=main.css.map */

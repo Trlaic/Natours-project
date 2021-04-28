@@ -9,6 +9,15 @@
     font-size: $default-font-size;
     transform: skewX(-12deg);
 
+    @include respond(tab-port){
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem;
+    }
+    @include respond(phone){
+        transform: skewX(0);
+    }
+
     &:not(:last-child){
         margin-bottom: $gutter-vertical; /*this is not in the course, I added it to solve the problem, perhaps i omitted something while watching*/
     }
@@ -25,7 +34,10 @@
         transform: skewX(12deg) translateX(-3rem); /*it's better not to mess with margin when floated element is the main actor, but to translate it
                                  with this transform property, element pops out of 6rem padding, so it has to be increased for 3rem on the left side*/
         position: relative;
-    
+        
+        @include respond(phone){
+            transform: translateX(-3rem) skewX(0);
+        }
     }
 
     &__img{
@@ -38,6 +50,10 @@
 
     &__text{
         transform: skewX(12deg);
+        
+        @include respond(phone){
+            transform: skewX(0);
+        }
     }
 
     &__caption{
