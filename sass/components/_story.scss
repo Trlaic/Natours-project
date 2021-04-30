@@ -26,15 +26,26 @@
         width: 15rem;
         height: 15rem;
         overflow: hidden;/*this solves weird line beside image in circle*/
+        border-radius: 50%;
         float: left;
-        shape-outside: circle(50% at 50% 50%); /*this value represents radius of 50% (7.5rem) and center of the circle (first value X axis,
-                                                second value Y axis - like the translate (50%,50%) when centered inside container) 
-                                                for this property, element must have defined float and width and height as well*/
-        clip-path: circle(50% at 50% 50%); 
         transform: skewX(12deg) translateX(-3rem); /*it's better not to mess with margin when floated element is the main actor, but to translate it
                                  with this transform property, element pops out of 6rem padding, so it has to be increased for 3rem on the left side*/
         position: relative;
         
+        @supports (clip-path: polygon(0 0 )) or (-webkit-clip-path: polygon(0 0 )){
+            -webkit-clip-path: circle(50% at 50% 50%); 
+            clip-path: circle(50% at 50% 50%); 
+            border-radius:none ;
+            shape-outside: circle(50% at 50% 50%); /*this value represents radius of 50% (7.5rem) and center of the circle (first value X axis,
+                                                second value Y axis - like the translate (50%,50%) when centered inside container) 
+                                                for this property, element must have defined float and width and height as well*/
+        }
+
+        @include respond(tab-port){
+            width: 10rem;
+            height: 10rem;
+        }
+
         @include respond(phone){
             transform: translateX(-3rem) skewX(0);
         }
@@ -46,6 +57,9 @@
        transform: translateX(-4rem) scale(1.4); /**/
        transition: all .5s;
        backface-visibility: hidden;/*it fixes some unexpected sensations during an animation*/
+       @include respond(tab-port){
+            transform: translateX(-3rem) scale(1.4); 
+       }
     }
 
     &__text{
@@ -77,6 +91,9 @@
     &:hover &__img{
         transform: translateX(-4rem) scale(1);
         filter: blur(3px) brightness(80%);/*for brightness - values under 100% darken the image, and values above 100% lighten the image*/
+        @include respond(tab-port){
+            transform: translateX(-3rem) scale(1); 
+       }
     }
     
 

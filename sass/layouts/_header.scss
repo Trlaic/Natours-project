@@ -1,14 +1,31 @@
 .header{
-    height: 95vh;/*95 percent of the viewport height*/
-    background-image: linear-gradient(to right bottom,rgba($color-primary-light,0.8),rgba($color-primary-dark,0.8)), url(../img/hero.jpg);
+    height: 85vh;/*85 percent of the viewport height*/
+    background-image: linear-gradient(to right bottom,
+    rgba($color-primary-light,0.8),
+    rgba($color-primary-dark,0.8)),
+     url(../img/hero-small.jpg);
     /*changing of the hex format into rgba is rather easy, click on the top bar in the color picker*/
     background-size: cover; /*cover up container fully always*/
     background-position: top;/*top of the image will always be visible the same as on the original img at the top despite minimizing or maximizing, 
                                 rest of the img will be cropped*/
     position: relative;
 
-   -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-           clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);/*top left corner is the reference point for making the other vertices */
+  
+
+    @supports (clip-path: polygon(0 0 )) or (-webkit-clip-path: polygon(0 0 )){
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);/*top left corner is the reference point for making the other vertices */
+        height: 95vh;/*95 percent of the viewport height*/
+    }
+
+    @media (min-resolution:192dpi) and (min-width:37.5em),
+           (-webkit-min-device-pixel-ratio:2) and (min-width:37.5em), /*this condition is for safari*/
+           (min-width:125em){
+        background-image: linear-gradient(to right bottom,
+        rgba($color-primary-light,0.8),
+        rgba($color-primary-dark,0.8)),
+         url(../img/hero.jpg);
+    }
 
     @include respond(tab-port){
         -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
