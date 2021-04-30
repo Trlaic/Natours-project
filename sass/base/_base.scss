@@ -37,3 +37,8 @@ body{
     
 
 } /*all of the font characteristics are written in the body selector, beacuse it's reasonable to take advantage of inheritance concept */
+
+::selection{
+    background-color: $color-primary;
+    color: $color-white;
+}
